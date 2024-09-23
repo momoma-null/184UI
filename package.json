@@ -1,0 +1,12 @@
+{
+  "name": "com.iwashi-184.184ui",
+  "displayName": "184 UI",
+  "version": "0.0.1",
+  "unity": "2022.3",
+  "description": "UI package for VRC provided by 184",
+  "repository": {
+    "url": "https://github.com/momoma-null/184UI.git",
+    "type": "git"
+  },
+  "type": "sample"
+}
