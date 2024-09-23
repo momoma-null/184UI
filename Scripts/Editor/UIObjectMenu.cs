@@ -36,19 +36,19 @@ namespace Iwashi.UI
             PlaceUIElementRoot(PrefabReference.Instance.Slider, menuCommand);
         }
 
-        [MenuItem(COMMON_MENU_PATH + "DropDown", false, BASE_PRIORITY + 3)]
+        [MenuItem(COMMON_MENU_PATH + "Dropdown", false, BASE_PRIORITY + 3)]
         static void CreateDropDown(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.DropDown, menuCommand);
+            PlaceUIElementRoot(PrefabReference.Instance.Dropdown, menuCommand);
         }
 
-        [MenuItem(COMMON_MENU_PATH + "InputField", false, BASE_PRIORITY + 4)]
+        [MenuItem(COMMON_MENU_PATH + "Input Field", false, BASE_PRIORITY + 4)]
         static void CreateInputField(MenuCommand menuCommand)
         {
             PlaceUIElementRoot(PrefabReference.Instance.InputField, menuCommand);
         }
 
-        [MenuItem(COMMON_MENU_PATH + "URLInputField", false, BASE_PRIORITY + 5)]
+        [MenuItem(COMMON_MENU_PATH + "URL Input Field", false, BASE_PRIORITY + 5)]
         static void CreateURLInputField(MenuCommand menuCommand)
         {
             PlaceUIElementRoot(PrefabReference.Instance.URLInputField, menuCommand);
@@ -60,13 +60,13 @@ namespace Iwashi.UI
             PlaceUIElementRoot(PrefabReference.Instance.Toggle, menuCommand);
         }
 
-        [MenuItem(COMMON_MENU_PATH + "ToggleGroup", false, BASE_PRIORITY + 7)]
+        [MenuItem(COMMON_MENU_PATH + "Toggle Group", false, BASE_PRIORITY + 7)]
         static void CreateToggleGroup(MenuCommand menuCommand)
         {
             PlaceUIElementRoot(PrefabReference.Instance.ToggleGroup, menuCommand);
         }
 
-        [MenuItem(COMMON_MENU_PATH + "ScrollView", false, BASE_PRIORITY + 8)]
+        [MenuItem(COMMON_MENU_PATH + "Scroll View", false, BASE_PRIORITY + 8)]
         static void CreateScrollView(MenuCommand menuCommand)
         {
             PlaceUIElementRoot(PrefabReference.Instance.ScrollView, menuCommand);

@@ -15,7 +15,7 @@ MonoBehaviour:
   panel: {fileID: 521438229591194075, guid: cc84281f698c32344ad66ac514e2ba96, type: 3}
   button: {fileID: 9185298804651576306, guid: da689dbc02bf2a34181466e7983fd90e, type: 3}
   slider: {fileID: 5386460462627665311, guid: f04aa65cbedbe2642b00e168e928d8c9, type: 3}
-  dropDown: {fileID: 7465890223756577411, guid: 04c2811d72e806f4c9e266d892914eb8,
+  dropdown: {fileID: 7465890223756577411, guid: 04c2811d72e806f4c9e266d892914eb8,
     type: 3}
   inputField: {fileID: 920723277994730731, guid: 1e4452cbe3e1db040b5891b4f38343af,
     type: 3}

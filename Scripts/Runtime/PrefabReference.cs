@@ -12,7 +12,7 @@ namespace Iwashi.UI
         [SerializeField]
         GameObject slider;
         [SerializeField]
-        GameObject dropDown;
+        GameObject dropdown;
         [SerializeField]
         GameObject inputField;
         [SerializeField]
@@ -27,7 +27,7 @@ namespace Iwashi.UI
         public GameObject Panel => panel;
         public GameObject Button => button;
         public GameObject Slider => slider;
-        public GameObject DropDown => dropDown;
+        public GameObject Dropdown => dropdown;
         public GameObject InputField => inputField;
         public GameObject URLInputField => urlInputField;
         public GameObject Toggle => toggle;
