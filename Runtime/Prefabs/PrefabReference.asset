@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514236a8d8d1d224da239817383d3a8e, type: 3}
+  m_Name: PrefabReference
+  m_EditorClassIdentifier: 
+  panel: {fileID: 521438229591194075, guid: cc84281f698c32344ad66ac514e2ba96, type: 3}
+  button: {fileID: 9185298804651576306, guid: da689dbc02bf2a34181466e7983fd90e, type: 3}
+  slider: {fileID: 5386460462627665311, guid: f04aa65cbedbe2642b00e168e928d8c9, type: 3}
+  dropDown: {fileID: 7465890223756577411, guid: 04c2811d72e806f4c9e266d892914eb8,
+    type: 3}
+  inputField: {fileID: 920723277994730731, guid: 1e4452cbe3e1db040b5891b4f38343af,
+    type: 3}
+  urlInputField: {fileID: 2561394758019709119, guid: fcd88e8edd573b0469ed43e9cfd37470,
+    type: 3}
+  toggle: {fileID: 8502600345877627709, guid: 8fb1a60ef5b605949a2f2c257a9f130a, type: 3}
+  toggleGroup: {fileID: 7178266997433255657, guid: 045a076680acb584ba704e097bb9676f,
+    type: 3}
+  scrollView: {fileID: 1204215687308613722, guid: 49a253b76d8a86646a01e5b48b8aae35,
+    type: 3}

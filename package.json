@@ -10,6 +10,7 @@
   },
   "type": "sample",
   "dependencies": {
-    "com.unity.2d.sprite": "1.0.0"
+    "com.unity.2d.sprite": "1.0.0",
+    "com.unity.textmeshpro": "3.0.9"
   }
 }
