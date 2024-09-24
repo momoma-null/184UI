@@ -2,7 +2,9 @@
 using System.Reflection;
 using TMPro.EditorUtilities;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Iwashi.UI
 {
@@ -78,6 +80,22 @@ namespace Iwashi.UI
             PlaceUIElementRoot(PrefabReference.Instance.TabMenu, menuCommand);
         }
 
+        [MenuItem(COMMON_MENU_PATH + "Canvas", false, BASE_PRIORITY + 60)]
+        static void CreateCanvas(MenuCommand menuCommand)
+        {
+            var go = CreateNewUI();
+            SetParentAndAlign(go, menuCommand.context as GameObject);
+            if (go.transform.parent as RectTransform)
+            {
+                var rect = go.transform as RectTransform;
+                rect.anchorMin = Vector2.zero;
+                rect.anchorMax = Vector2.one;
+                rect.anchoredPosition = Vector2.zero;
+                rect.sizeDelta = Vector2.zero;
+            }
+            Selection.activeGameObject = go;
+        }
+
         static GameObject PlaceUIElementRoot(GameObject source, MenuCommand menuCommand)
         {
             var element = Object.Instantiate(source);
@@ -89,5 +107,73 @@ namespace Iwashi.UI
             return element;
         }
 
+        static GameObject CreateNewUI()
+        {
+            var source = PrefabReference.Instance.Canvas;
+            var root = Object.Instantiate(source);
+            root.name = source.name;
+            Undo.RegisterCreatedObjectUndo(root, string.Empty);
+
+            StageUtility.PlaceGameObjectInCurrentStage(root);
+            var customScene = false;
+            var prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
+            if (prefabStage != null)
+            {
+                Undo.SetTransformParent(root.transform, prefabStage.prefabContentsRoot.transform, "");
+                customScene = true;
+            }
+
+            Undo.SetCurrentGroupName("Create " + root.name);
+
+            if (!customScene)
+                CreateEventSystem();
+            return root;
+        }
+
+        static void CreateEventSystem()
+        {
+            var stage = StageUtility.GetCurrentStageHandle();
+            var esys = stage.FindComponentOfType<EventSystem>();
+            if (esys == null)
+            {
+                var eventSystem = ObjectFactory.CreateGameObject("EventSystem");
+                StageUtility.PlaceGameObjectInCurrentStage(eventSystem);
+                ObjectFactory.AddComponent<EventSystem>(eventSystem);
+                ObjectFactory.AddComponent<StandaloneInputModule>(eventSystem);
+                Undo.RegisterCreatedObjectUndo(eventSystem, "Create " + eventSystem.name);
+            }
+        }
+
+        static void SetParentAndAlign(GameObject child, GameObject parent)
+        {
+            if (parent == null)
+                return;
+
+            Undo.SetTransformParent(child.transform, parent.transform, "");
+
+            var rectTransform = child.transform as RectTransform;
+            if (rectTransform)
+            {
+                rectTransform.anchoredPosition = Vector2.zero;
+                var localPosition = rectTransform.localPosition;
+                localPosition.z = 0;
+                rectTransform.localPosition = localPosition;
+            }
+            else
+            {
+                child.transform.localPosition = Vector3.zero;
+            }
+            child.transform.localRotation = Quaternion.identity;
+
+            SetLayerRecursively(child, parent.layer);
+        }
+
+        static void SetLayerRecursively(GameObject go, int layer)
+        {
+            go.layer = layer;
+            var t = go.transform;
+            for (var i = 0; i < t.childCount; i++)
+                SetLayerRecursively(t.GetChild(i).gameObject, layer);
+        }
     }
 }
