@@ -23,6 +23,8 @@ namespace Iwashi.UI
         GameObject toggleGroup;
         [SerializeField]
         GameObject scrollView;
+        [SerializeField]
+        GameObject tabMenu;
 
         public GameObject Panel => panel;
         public GameObject Button => button;
@@ -33,6 +35,7 @@ namespace Iwashi.UI
         public GameObject Toggle => toggle;
         public GameObject ToggleGroup => toggleGroup;
         public GameObject ScrollView => scrollView;
+        public GameObject TabMenu => tabMenu;
 
         public static PrefabReference Instance { get; private set; }
 

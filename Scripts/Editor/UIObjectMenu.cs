@@ -72,6 +72,12 @@ namespace Iwashi.UI
             PlaceUIElementRoot(PrefabReference.Instance.ScrollView, menuCommand);
         }
 
+        [MenuItem(COMMON_MENU_PATH + "Tab Menu", false, BASE_PRIORITY + 9)]
+        static void CreateTabMenu(MenuCommand menuCommand)
+        {
+            PlaceUIElementRoot(PrefabReference.Instance.TabMenu, menuCommand);
+        }
+
         static GameObject PlaceUIElementRoot(GameObject source, MenuCommand menuCommand)
         {
             var element = Object.Instantiate(source);
