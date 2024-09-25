@@ -18,9 +18,19 @@ namespace Iwashi.UI
                 root.GetComponentsInChildren(true, preprocessors);
                 foreach (var i in preprocessors)
                 {
-                    i.Process();
-                    Debug.Log($"{i.GetType().Name} process done.({i})");
-                    Object.DestroyImmediate(i as Component);
+                    try
+                    {
+                        i.Process();
+                        Debug.Log($"{i.GetType().Name} process done.({i})");
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                    finally
+                    {
+                        Object.DestroyImmediate(i as Component);
+                    }
                 }
             }
         }
