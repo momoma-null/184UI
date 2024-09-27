@@ -15,16 +15,23 @@ namespace Iwashi.UI
         [SerializeField]
         Graphic graphic;
 
+        bool isInitialized = false;
+
         void Reset()
         {
             graphic = GetComponent<Graphic>();
             themeColor = GetComponentInParent<ThemeColor>();
+            UpdateColor(themeColor);
         }
 
         void OnValidate()
         {
-            ThemeColor.OnChangeColor -= UpdateColor;
-            ThemeColor.OnChangeColor += UpdateColor;
+            if (!isInitialized)
+            {
+                ThemeColor.OnChangeColor -= UpdateColor;
+                ThemeColor.OnChangeColor += UpdateColor;
+                isInitialized = true;
+            }
         }
 
         void UpdateColor(ThemeColor currentThemeColor)
