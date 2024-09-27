@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Iwashi.UI
 {
+    [AddComponentMenu("")]
     sealed class ThemeColor : MonoBehaviour, IPreprocessBehaviour
     {
         [SerializeField]

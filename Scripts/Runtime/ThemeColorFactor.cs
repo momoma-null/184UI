@@ -8,6 +8,7 @@ namespace Iwashi.UI
     [ExecuteAlways]
     [DefaultExecutionOrder(18)]
     [RequireComponent(typeof(Graphic))]
+    [AddComponentMenu("")]
     sealed class ThemeColorFactor : MonoBehaviour, IPreprocessBehaviour
     {
         [SerializeField]
