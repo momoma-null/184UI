@@ -8,5 +8,9 @@
     "url": "https://github.com/momoma-null/184UI.git",
     "type": "git"
   },
-  "type": "sample"
+  "type": "sample",
+  "dependencies": {
+    "com.unity.2d.sprite": "1.0.0",
+    "com.unity.textmeshpro": "3.0.9"
+  }
 }

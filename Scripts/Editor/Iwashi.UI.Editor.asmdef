@@ -1,0 +1,19 @@
+{
+    "name": "Iwashi.UI.Editor",
+    "rootNamespace": "Iwashi.UI",
+    "references": [
+        "GUID:6a7976a7de3031c45a3d5664e0aa2458",
+        "GUID:6546d7765b4165b40850b3667f981c26"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
