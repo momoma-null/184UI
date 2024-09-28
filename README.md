@@ -1,6 +1,8 @@
 # 184UI
 UI package for VRC provided by 184
 
+<img src="https://github.com/user-attachments/assets/75613e5d-9ec8-4930-9ad5-283a0f7f7312" width="50%" />
+
 # GameObject Menu
 - An item `UI (184)` is added to the GameObject menu.
 - Can generate custom UI objects optimized for VRChat.
