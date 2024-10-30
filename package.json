@@ -9,6 +9,9 @@
     "type": "git"
   },
   "type": "sample",
+  "author": {
+    "name": "iwashi"
+  },
   "dependencies": {
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.textmeshpro": "3.0.9"
