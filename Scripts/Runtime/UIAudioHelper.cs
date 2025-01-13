@@ -12,20 +12,37 @@ namespace Iwashi.UI
     {
         [SerializeField]
         EventTrigger buttonEvent;
+        [SerializeField]
+        EventTrigger selectableEvent;
 
         void IPreprocessBehaviour.Process()
         {
-            var sourceEvent = Instantiate(buttonEvent, transform);
+            var sourceButtonEvent = default(EventTrigger);
+            var sourceSelectableEvent = default(EventTrigger);
             var selectables = GetComponentsInChildren<Selectable>(true);
             foreach (var selectable in selectables)
             {
                 if (selectable is Button or Toggle)
                 {
                     var eventTrigger = selectable.gameObject.AddComponent<EventTrigger>();
-                    EditorUtility.CopySerialized(sourceEvent, eventTrigger);
+                    if (sourceButtonEvent == default)
+                    {
+                        sourceButtonEvent = Instantiate(buttonEvent, transform);
+                    }
+                    EditorUtility.CopySerialized(sourceButtonEvent, eventTrigger);
+                }
+                else
+                {
+                    var eventTrigger = selectable.gameObject.AddComponent<EventTrigger>();
+                    if (sourceSelectableEvent == default)
+                    {
+                        sourceSelectableEvent = Instantiate(selectableEvent, transform);
+                    }
+                    EditorUtility.CopySerialized(sourceSelectableEvent, eventTrigger);
                 }
             }
-            DestroyImmediate(sourceEvent);
+            DestroyImmediate(sourceButtonEvent);
+            DestroyImmediate(sourceSelectableEvent);
         }
     }
 }
