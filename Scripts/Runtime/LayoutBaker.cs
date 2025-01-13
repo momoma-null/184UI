@@ -9,6 +9,10 @@ namespace Iwashi.UI
     {
         void IPreprocessBehaviour.Process()
         {
+            if (transform is RectTransform rectTransform)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+            }
             if (TryGetComponent<ContentSizeFitter>(out var contentSizeFitter))
             {
                 DestroyImmediate(contentSizeFitter);
