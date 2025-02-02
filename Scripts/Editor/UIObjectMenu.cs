@@ -16,10 +16,22 @@ namespace Iwashi.UI
         readonly static object[] s_Parameters = new object[] { default, default };
         readonly static MethodInfo s_PlaceUIElementRoot = typeof(TMPro_CreateObjectMenu).GetMethod("PlaceUIElementRoot", BindingFlags.Static | BindingFlags.NonPublic);
 
+        static PrefabReference GetPrefabReference()
+        {
+            if(PrefabReference.Instance) return PrefabReference.Instance;
+            var guids = AssetDatabase.FindAssets($"t:{nameof(PrefabReference)}");
+            foreach(var guid in guids)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                AssetDatabase.LoadMainAssetAtPath(path);
+            }
+            return PrefabReference.Instance;
+        }
+
         [MenuItem(COMMON_MENU_PATH + "Panel", false, BASE_PRIORITY)]
         static void CreatePanel(MenuCommand menuCommand)
         {
-            var go = PlaceUIElementRoot(PrefabReference.Instance.Panel, menuCommand);
+            var go = PlaceUIElementRoot(GetPrefabReference().Panel, menuCommand);
 
             var rect = go.GetComponent<RectTransform>();
             rect.anchoredPosition = Vector2.zero;
@@ -29,55 +41,55 @@ namespace Iwashi.UI
         [MenuItem(COMMON_MENU_PATH + "Button", false, BASE_PRIORITY + 1)]
         static void CreateButton(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.Button, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().Button, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Slider", false, BASE_PRIORITY + 2)]
         static void CreateSlider(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.Slider, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().Slider, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Dropdown", false, BASE_PRIORITY + 3)]
         static void CreateDropDown(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.Dropdown, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().Dropdown, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Input Field", false, BASE_PRIORITY + 4)]
         static void CreateInputField(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.InputField, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().InputField, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "URL Input Field", false, BASE_PRIORITY + 5)]
         static void CreateURLInputField(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.URLInputField, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().URLInputField, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Toggle", false, BASE_PRIORITY + 6)]
         static void CreateToggle(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.Toggle, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().Toggle, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Toggle Group", false, BASE_PRIORITY + 7)]
         static void CreateToggleGroup(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.ToggleGroup, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().ToggleGroup, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Scroll View", false, BASE_PRIORITY + 8)]
         static void CreateScrollView(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.ScrollView, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().ScrollView, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Tab Menu", false, BASE_PRIORITY + 9)]
         static void CreateTabMenu(MenuCommand menuCommand)
         {
-            PlaceUIElementRoot(PrefabReference.Instance.TabMenu, menuCommand);
+            PlaceUIElementRoot(GetPrefabReference().TabMenu, menuCommand);
         }
 
         [MenuItem(COMMON_MENU_PATH + "Canvas", false, BASE_PRIORITY + 60)]
@@ -109,7 +121,7 @@ namespace Iwashi.UI
 
         static GameObject CreateNewUI()
         {
-            var source = PrefabReference.Instance.Canvas;
+            var source = GetPrefabReference().Canvas;
             var root = Object.Instantiate(source);
             root.name = source.name;
             Undo.RegisterCreatedObjectUndo(root, string.Empty);
