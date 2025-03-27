@@ -25,6 +25,7 @@ namespace Iwashi.UI
             if (parent is not RectTransform rectTransform)
                 return;
 
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
             if (parent.TryGetComponent<IEventSystemHandler>(out var _))
             {
                 var rect = rectTransform.rect;
