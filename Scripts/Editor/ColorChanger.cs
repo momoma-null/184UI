@@ -16,9 +16,11 @@ namespace Iwashi.UI
         SerializedProperty _colorSyncedColorProperty;
         SerializedProperty _rgbSyncedColorProperty;
         SerializedProperty _textColorProperty;
+        SerializedProperty _fontProperty;
 
         readonly GUIContent themeColorLabel = new("Theme Color");
         readonly GUIContent textColorLabel = new("Text Color");
+        readonly GUIContent fontLabel = new("Font");
 
         [MenuItem("Tools/184UI/Color Changer", false, 184)]
         static void ShowWindow()
@@ -33,9 +35,7 @@ namespace Iwashi.UI
 
         void OnDisable()
         {
-            _colorSyncedColorProperty = null;
-            _rgbSyncedColorProperty = null;
-            _textColorProperty = null;
+            ResetProperties();
         }
 
         void OnHierarchyChange()
@@ -67,6 +67,12 @@ namespace Iwashi.UI
                 EditorGUILayout.PropertyField(_textColorProperty, textColorLabel);
                 _textColorProperty.serializedObject.ApplyModifiedProperties();
             }
+            if (_fontProperty != null)
+            {
+                _fontProperty.serializedObject.Update();
+                EditorGUILayout.PropertyField(_fontProperty, fontLabel);
+                _fontProperty.serializedObject.ApplyModifiedProperties();
+            }
         }
 
         void CollectGraphics()
@@ -74,9 +80,7 @@ namespace Iwashi.UI
             if (_targetCanvas == null)
             {
                 _targetCanvas = null; // object null. not Unity null.
-                _colorSyncedColorProperty = null;
-                _rgbSyncedColorProperty = null;
-                _textColorProperty = null;
+                ResetProperties();
                 return;
             }
 
@@ -85,9 +89,7 @@ namespace Iwashi.UI
             _targetCanvas.GetComponentsInChildren(true, graphics);
             if (graphics == null || graphics.Count == 0)
             {
-                _colorSyncedColorProperty = null;
-                _rgbSyncedColorProperty = null;
-                _textColorProperty = null;
+                ResetProperties();
                 return;
             }
 
@@ -97,27 +99,20 @@ namespace Iwashi.UI
             {
                 var themeColor = graphicGroup.Key;
 
-                var colorSyncedGraphics = new List<Graphic>();
                 var rgbSyncedGraphics = new List<Graphic>();
-                foreach (var graphic in graphics)
+                foreach (var graphic in graphics.Where(x => x is not TMP_Text))
                 {
                     var graphicColor32 = (Color32)graphic.color;
                     if (graphicColor32.r == themeColor.r
                         && graphicColor32.g == themeColor.g
-                        && graphicColor32.b == themeColor.b)
+                        && graphicColor32.b == themeColor.b
+                        && graphicColor32.a != themeColor.a)
                     {
-                        if (graphicColor32.a == themeColor.a)
-                        {
-                            colorSyncedGraphics.Add(graphic);
-                        }
-                        else
-                        {
-                            rgbSyncedGraphics.Add(graphic);
-                        }
+                        rgbSyncedGraphics.Add(graphic);
                     }
                 }
 
-                _colorSyncedColorProperty = new SerializedObject(colorSyncedGraphics.ToArray()).FindProperty("m_Color");
+                _colorSyncedColorProperty = new SerializedObject(graphicGroup.ToArray()).FindProperty("m_Color");
 
                 if (rgbSyncedGraphics.Count > 0)
                 {
@@ -144,6 +139,17 @@ namespace Iwashi.UI
             {
                 _textColorProperty = null;
             }
+
+            // Find most common font
+            var fontTextGroup = graphics.OfType<TMP_Text>().GroupBy(x => x.font).OrderByDescending(x => x.Count()).FirstOrDefault();
+            if (fontTextGroup != null)
+            {
+                _fontProperty = new SerializedObject(fontTextGroup.ToArray()).FindProperty("m_fontAsset");
+            }
+            else
+            {
+                _fontProperty = null;
+            }
         }
 
         void ApplyColor()
@@ -157,6 +163,14 @@ namespace Iwashi.UI
                 _rgbSyncedColorProperty.FindPropertyRelative("b").floatValue = color.b;
                 _rgbSyncedColorProperty.serializedObject.ApplyModifiedProperties();
             }
+        }
+
+        void ResetProperties()
+        {
+            _colorSyncedColorProperty = null;
+            _rgbSyncedColorProperty = null;
+            _textColorProperty = null;
+            _fontProperty = null;
         }
     }
 }
